@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="./sytle.css">
+        <title>Document</title>
+    </head>
+    <body>
+        <div class="container">
+            <h1>Age Calculator</h1>
+            <p>Enter your birth date</p>
+            <input type="date" id="dateInput" placeholder="dd/mm/yyyy">
+            <button id="btnCalc">Calculate</button>
+            <p id="response"></p>
+        </div>
+    </body>
+    <script type="module">
+        import flatpickr from 'flatpickr';
+        import {diffMonths} from '@formkit/tempo';
+        import "flatpickr/dist/flatpickr.min.css";
+
+        flatpickr('#dateInput', {});
+
+        const btn = document.getElementById('btnCalc');
+        const response = document.getElementById('response');
+
+        btn.addEventListener('click', () => {
+            const date = new Date(document.getElementById('dateInput').value).toISOString();
+            const today = new Date().toISOString();
+            const months = diffMonths(today, date);    
+            
+            response.innerHTML = `You are <Strong>
+                ${Math.floor(months / 12)} years and 
+                ${(months%12)} months old</Strong>`;
+        });
+    </script>
+</html>
